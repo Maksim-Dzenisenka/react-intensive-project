@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 
 import 'antd/dist/antd.css';
-import { Layout, Image, Button, Row, Col, Space, Card } from 'antd';
+import 'semantic-ui-css/semantic.min.css'
+import { Layout, Image, Button, Row, Col, Space } from 'antd';
 import mainBackground from './images/stars.jpg';
 import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
+import Cards from './components/Cards/Cards';
 
-import './App.css';
-import { url } from 'inspector';
+/* import './App.css';
+import { url } from 'inspector'; */
 
 const { Header, Content } = Layout;
 
+
 function App() {
+  const [films, setFilms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=> {
+    async function fetchFilms() {
+      let res = await fetch('https://swapi.dev/api/films/');
+      let data = await res.json();
+      setFilms(data.results);
+      setLoading(false);  
+    }
+
+    fetchFilms();
+  }, []);
+  
+
   return (
     <>
-      <Layout style={{backgroundImage: `url(${mainBackground})`}}>
+    <Layout style={{backgroundImage: `url(${mainBackground})`}}>
         <Header style={{height:'100px', background: 'transparent'}}>
           <Row justify="space-between" align="middle">
             <Col span={3}>
@@ -42,15 +60,9 @@ function App() {
               <Complete />
             </Col>                      
           </Row>
-          <Row justify="center" align="middle" style={{margin: '0px'}} gutter={[16, 24]}> 
-            <Col>
-              <Card title="Default size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-              </Card>
-            </Col>                       
-          </Row>               
+          <div className="CardsContainer">
+            <Cards data={films}/>  
+          </div>           
         </Content>
       </Layout>
     </>
