@@ -1,11 +1,12 @@
 import React from 'react';
 import { Card, Grid, Button } from 'semantic-ui-react';
+import '../Cards/Cards.css'
 
 export default function Cards({ data }) {
     return (
         <>
             <h1>Films</h1>
-            <Grid columns={4}>
+            <Grid columns={3}>
                 {data.map((film, i) => {
                     return (
                         <Grid.Column key={i}>

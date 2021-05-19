@@ -8,8 +8,8 @@ import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
 import Cards from './components/Cards/Cards';
 
-/* import './App.css';
-import { url } from 'inspector'; */
+import './App.css';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 const { Header, Content } = Layout;
 
@@ -61,7 +61,13 @@ function App() {
             </Col>                      
           </Row>
           <div className="CardsContainer">
-            <Cards data={films}/>  
+            {loading ? (
+              <Dimmer active inverted>
+                <Loader inverted>Loading</Loader>
+              </Dimmer>
+            ) : (
+              <Cards data={films}/>  
+            )} 
           </div>           
         </Content>
       </Layout>
