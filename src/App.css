@@ -8,6 +8,7 @@
 }
 
 .CardsContainer {
+  width: 80vw;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
