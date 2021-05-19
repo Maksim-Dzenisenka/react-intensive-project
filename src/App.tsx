@@ -1,7 +1,7 @@
 import React from 'react';
 
 import 'antd/dist/antd.css';
-import { Layout, Image, Button, Row, Col, Input, Space, Card } from 'antd';
+import { Layout, Image, Button, Row, Col, Space, Card } from 'antd';
 import mainBackground from './images/stars.jpg';
 import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
