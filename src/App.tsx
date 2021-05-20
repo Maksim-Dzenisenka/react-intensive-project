@@ -60,7 +60,7 @@ function App() {
               <Complete />
             </Col>                      
           </Row>
-          <div className="CardsContainer">
+          <div>
             {loading ? (
               <Dimmer active inverted>
                 <Loader inverted>Loading</Loader>
