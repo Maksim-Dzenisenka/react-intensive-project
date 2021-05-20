@@ -1,7 +1,7 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 
 import 'antd/dist/antd.css';
-import { Layout, Image, Button, Row, Col, Space, Spin, Skeleton } from 'antd';
+import { Layout, Image, Button, Row, Col, Space, Spin } from 'antd';
 import mainBackground from './images/stars.jpg';
 import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
@@ -10,112 +10,67 @@ import './App.css';
 
 const { Header, Content } = Layout;
 
-
 function App() {
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=> {
+  useEffect(() => {
     async function fetchFilms() {
       const res = await fetch('https://swapi.dev/api/films/');
       const data = await res.json();
       setFilms(data.results);
-      setLoading(false);  
+      setLoading(false);
     }
 
     fetchFilms();
   }, []);
-  
 
   return (
     <>
-    <Layout style={{backgroundImage: `url(${mainBackground})`}}>
-        <Header style={{height:'100px', background: 'transparent'}}>
-          <Row justify="space-between" align="middle">
+      <Layout style={{ backgroundImage: `url(${mainBackground})` }}>
+        <Header style={{ height: '100px', background: 'transparent' }}>
+          <Row justify='space-between' align='middle'>
             <Col span={3}>
               <Image
                 width={200}
                 height={100}
                 preview={false}
-                style={{cursor:'pointer'}}
+                style={{ cursor: 'pointer' }}
                 src={logo}
               />
             </Col>
-            <Col span={5}>  
-              <Row justify="end" align="top">
+            <Col span={5}>
+              <Row justify='end' align='top'>
                 <Space size='small'>
-                  <Button size='large' ghost={true}>Вход</Button>
-                  <Button size='large' ghost={true}>Регистрация</Button>
-                </Space>               
+                  <Button size='large' ghost={true}>
+                    Вход
+                  </Button>
+                  <Button size='large' ghost={true}>
+                    Регистрация
+                  </Button>
+                </Space>
               </Row>
             </Col>
           </Row>
         </Header>
-        <Content style={{minHeight: '900px'}}>
-          <Row justify="center" align="middle" style={{height: '100px'}}>
+        <Content style={{ minHeight: '900px' }}>
+          <Row justify='center' align='middle' style={{ height: '100px' }}>
             <Col span={22}>
               <Complete />
-            </Col>                      
+            </Col>
           </Row>
-          <div className="CardsContainer">
+          <div className='CardsContainer'>
             {loading ? (
-              <Skeleton>
+              <Fragment>
                 <Spin>Loading</Spin>
-              </Skeleton>
+              </Fragment>
             ) : (
-              <Cards data={films}/>  
-            )} 
-          </div>           
+              <Cards data={films} />
+            )}
+          </div>
         </Content>
       </Layout>
     </>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <Counter />
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <span>
-    //       <span>Learn </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://reactjs.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         React
-    //       </a>
-    //       <span>, </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://redux.js.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         Redux
-    //       </a>
-    //       <span>, </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://redux-toolkit.js.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         Redux Toolkit
-    //       </a>
-    //       ,<span> and </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://react-redux.js.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         React Redux
-    //       </a>
-    //     </span>
-    //   </header>
-    // </div>
   );
 }
 
