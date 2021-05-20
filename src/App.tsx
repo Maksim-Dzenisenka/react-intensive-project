@@ -1,15 +1,12 @@
 import React, { useState, useEffect }  from 'react';
 
 import 'antd/dist/antd.css';
-import 'semantic-ui-css/semantic.min.css'
-import { Layout, Image, Button, Row, Col, Space } from 'antd';
+import { Layout, Image, Button, Row, Col, Space, Spin, Skeleton } from 'antd';
 import mainBackground from './images/stars.jpg';
 import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
 import Cards from './components/Cards/Cards';
-
 import './App.css';
-import { Dimmer, Loader } from 'semantic-ui-react';
 
 const { Header, Content } = Layout;
 
@@ -20,8 +17,8 @@ function App() {
 
   useEffect(()=> {
     async function fetchFilms() {
-      let res = await fetch('https://swapi.dev/api/films/');
-      let data = await res.json();
+      const res = await fetch('https://swapi.dev/api/films/');
+      const data = await res.json();
       setFilms(data.results);
       setLoading(false);  
     }
@@ -60,11 +57,11 @@ function App() {
               <Complete />
             </Col>                      
           </Row>
-          <div>
+          <div className="CardsContainer">
             {loading ? (
-              <Dimmer active inverted>
-                <Loader inverted>Loading</Loader>
-              </Dimmer>
+              <Skeleton>
+                <Spin>Loading</Spin>
+              </Skeleton>
             ) : (
               <Cards data={films}/>  
             )} 

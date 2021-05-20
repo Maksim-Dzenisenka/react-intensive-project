@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Button } from 'antd';
 
 
 export default function Cards({ data }) {
@@ -10,10 +10,10 @@ export default function Cards({ data }) {
                     return (
                         <Col span={8} key={i}>
                             <Card 
-                            style={{marginBottom: 15}}
+                            style={{marginBottom: 15, height: 350}}
                             hoverable
                             title={<strong>{film.title}</strong>} 
-                            extra={<a href="#">More</a>} 
+                            extra={<Button>Show detailed info</Button>} 
                             bordered={false}>
                                 <p>{film.opening_crawl}</p>
                             </Card>
