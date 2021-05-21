@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'antd/dist/antd.css';
 import { Layout, Image, Button, Row, Col, Space, Spin } from 'antd';
@@ -6,6 +6,7 @@ import mainBackground from './images/stars.jpg';
 import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
 import Cards from './components/Cards/Cards';
+import FilmInfo from './components/FilmInfo/FilmInfo';
 import './App.css';
 
 const { Header, Content } = Layout;
@@ -13,15 +14,19 @@ const { Header, Content } = Layout;
 function App() {
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentFilm, setCurrentFilm] = useState(null);
 
+  useEffect(() => {
     async function fetchFilms() {
       const res = await fetch('https://swapi.dev/api/films/');
       const data = await res.json();
       setFilms(data.results);
+      setCurrentFilm(data.results[0]);
       setLoading(false);
     }
 
     fetchFilms();
+  }, []);
 
   return (
     <>
@@ -41,10 +46,10 @@ function App() {
               <Row justify='end' align='top'>
                 <Space size='small'>
                   <Button size='large' ghost={true}>
-                    Вход
+                    Sign in
                   </Button>
                   <Button size='large' ghost={true}>
-                    Регистрация
+                    Sign up
                   </Button>
                 </Space>
               </Row>
@@ -59,9 +64,11 @@ function App() {
           </Row>
           <div className='CardsContainer'>
             {loading ? (
-                <Spin className="Loader" 
-                tip="Loading..."/>)
-              : (<Cards data={films} />
+              <Spin className='Loader' tip='Loading...' />
+            ) : currentFilm ? (
+              <FilmInfo id={currentFilm} />
+            ) : (
+              <Cards data={films} />
             )}
           </div>
         </Content>
