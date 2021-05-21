@@ -15,6 +15,11 @@
   align-items: center;
 }
 
+.Loader {
+  display: block;
+  margin: 150px auto;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-float infinite 3s ease-in-out;
@@ -34,14 +39,3 @@
   color: rgb(112, 76, 182);
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}

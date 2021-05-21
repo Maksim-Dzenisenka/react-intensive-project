@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState } from 'react';
 
 import 'antd/dist/antd.css';
 import { Layout, Image, Button, Row, Col, Space, Spin } from 'antd';
@@ -14,7 +14,6 @@ function App() {
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
     async function fetchFilms() {
       const res = await fetch('https://swapi.dev/api/films/');
       const data = await res.json();
@@ -23,7 +22,6 @@ function App() {
     }
 
     fetchFilms();
-  }, []);
 
   return (
     <>
@@ -61,11 +59,9 @@ function App() {
           </Row>
           <div className='CardsContainer'>
             {loading ? (
-              <Fragment>
-                <Spin>Loading</Spin>
-              </Fragment>
-            ) : (
-              <Cards data={films} />
+                <Spin className="Loader" 
+                tip="Loading..."/>)
+              : (<Cards data={films} />
             )}
           </div>
         </Content>
