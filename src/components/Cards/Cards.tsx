@@ -10,14 +10,10 @@ export default function Cards({ data }) {
         {data.map((film, i) => {
           return (
             <Col span={8} key={i}>
-              <Card
+              <Card onClick={() => console.log(film)}
                 className='Card'
                 title={<strong>{film.title}</strong>}
-                extra={
-                  <Button onClick={() => console.log(film)}>
-                    Show detailed info
-                  </Button>
-                }
+
                 bordered={false}>
                 <p>{film.opening_crawl}</p>
               </Card>
