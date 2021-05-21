@@ -21,8 +21,8 @@ function App() {
       const res = await fetch('https://swapi.dev/api/films/');
       const data = await res.json();
       setFilms(data.results);
-      setCurrentFilm(data.results[0]);
       setLoading(false);
+      setCurrentFilm(null);
     }
 
     fetchFilms();
@@ -66,7 +66,7 @@ function App() {
             {loading ? (
               <Spin className='Loader' tip='Loading...' />
             ) : currentFilm ? (
-              <FilmInfo id={currentFilm} />
+              <FilmInfo film={currentFilm} />
             ) : (
               <Cards data={films} />
             )}

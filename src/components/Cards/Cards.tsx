@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Card } from 'antd';
 import './Cards.css';
+import FilmInfo from '../FilmInfo/FilmInfo';
 
 export default function Cards({ data }) {
   return (
