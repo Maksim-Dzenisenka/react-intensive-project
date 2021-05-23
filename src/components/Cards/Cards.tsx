@@ -3,7 +3,7 @@ import { Row, Col, Card } from 'antd';
 import './Cards.css';
 import FilmInfo from '../FilmInfo/FilmInfo';
 
-export default function Cards({ data }) {
+export default function Cards({ data, onChange }) {
   return (
     <Row gutter={16}>
       {data.map((film, i) => {

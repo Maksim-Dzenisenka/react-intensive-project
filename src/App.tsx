@@ -16,6 +16,11 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [currentFilm, setCurrentFilm] = useState(null);
 
+  const showMoreInfo = ({ film }) => {
+    setFilms([]);
+    setCurrentFilm(film);
+  };
+
   useEffect(() => {
     async function fetchFilms() {
       const res = await fetch('https://swapi.dev/api/films/');
@@ -27,11 +32,6 @@ function App() {
 
     fetchFilms();
   }, []);
-
-  /*   const showMoreInfo = ({ film }) => {
-    setFilms([]);
-    setCurrentFilm(film);
-  }; */
 
   return (
     <>
@@ -73,7 +73,7 @@ function App() {
             ) : currentFilm ? (
               <FilmInfo film={currentFilm} />
             ) : (
-              <Cards data={films} />
+              <Cards data={films} onChange={showMoreInfo} />
             )}
           </div>
         </Content>
