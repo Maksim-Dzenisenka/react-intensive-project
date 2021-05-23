@@ -22,11 +22,16 @@ function App() {
       const data = await res.json();
       setFilms(data.results);
       setLoading(false);
-      setCurrentFilm(null);
+      setCurrentFilm(data.results[0]);
     }
 
     fetchFilms();
   }, []);
+
+  /*   const showMoreInfo = ({ film }) => {
+    setFilms([]);
+    setCurrentFilm(film);
+  }; */
 
   return (
     <>

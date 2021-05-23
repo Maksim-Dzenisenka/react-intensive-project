@@ -8,7 +8,7 @@ export default function Cards({ data }) {
     <Row gutter={16}>
       {data.map((film, i) => {
         return (
-          <Col span={8} key={i}>
+          <Col span={8} key={i} id={i + 1}>
             <Card
               onClick={() => console.log(film)}
               className='Card'
