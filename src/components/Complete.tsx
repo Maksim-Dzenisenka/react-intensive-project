@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 
@@ -7,7 +7,7 @@ function getRandomInt(max: number, min: number = 0) {
 }
 
 const searchResult = (query: string) =>
-  new Array(getRandomInt(5))
+  new Array(getRandomInt(5, 5)) //количество сайджестов
     .join('.')
     .split('.')
     .map((_, idx) => {
@@ -19,15 +19,13 @@ const searchResult = (query: string) =>
             style={{
               display: 'flex',
               justifyContent: 'space-between',
-            }}
-          >
+            }}>
             <span>
               Found {query} on{' '}
               <a
-                href={`https://s.taobao.com/search?q=${query}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+                href={`https://s.taobao.com/search?q=${query}`} //ссылка на страницу с определённой информацией
+                target='_blank'
+                rel='noopener noreferrer'>
                 {category}
               </a>
             </span>
@@ -36,6 +34,24 @@ const searchResult = (query: string) =>
         ),
       };
     });
+
+function useDebouncedFunction(func: any, delay: number, cleanUp = false) {
+  const timeoutRef: any = useRef();
+
+  function clearTimer() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = undefined;
+    }
+  }
+
+  useEffect(() => (cleanUp ? clearTimer : undefined), [cleanUp]);
+
+  return (...args: any) => {
+    clearTimer();
+    timeoutRef.current = setTimeout(() => func(...args), delay);
+  };
+}
 
 const Complete: React.FC = () => {
   const [options, setOptions] = useState<SelectProps<object>['options']>([]);
@@ -51,12 +67,11 @@ const Complete: React.FC = () => {
   return (
     <AutoComplete
       dropdownMatchSelectWidth={252}
-      style={{ width: '100%'}}
+      style={{ width: '100%' }}
       options={options}
       onSelect={onSelect}
-      onSearch={handleSearch}
-    >
-      <Input.Search size="large" placeholder="Search Star Wars" />
+      onSearch={useDebouncedFunction(handleSearch, 1000)}>
+      <Input.Search size='large' placeholder='Search Star Wars' />
     </AutoComplete>
   );
 };
