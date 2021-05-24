@@ -4,7 +4,7 @@ import '../Cards/Cards.css';
 
 export default function FilmInfo({ film }) {
   return (
-    <div className='container'>
+    <div>
       <Card className='Card' title={<strong>{film.title}</strong>}>
         <h5>
           <strong>Director: </strong>

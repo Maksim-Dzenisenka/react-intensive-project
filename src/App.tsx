@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import 'antd/dist/antd.css';
-import { Layout, Image, Button, Row, Col, Space, Spin } from 'antd';
+import { Layout, Image, Button, Row, Col, Space } from 'antd';
 import mainBackground from './images/stars.jpg';
 import logo from './images/star-wars-logo.jpg';
 import Complete from './components/Complete';
 import Cards from './components/Cards/Cards';
-import FilmInfo from './components/FilmInfo/FilmInfo';
 import './App.css';
 
 const { Header, Content } = Layout;
 
 function App() {
-  const [films, setFilms] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentFilm, setCurrentFilm] = useState(null);
-
-  const showMoreInfo = ({ film }) => {
-    setFilms([]);
-    setCurrentFilm(film);
-  };
-
-  useEffect(() => {
-    async function fetchFilms() {
-      const res = await fetch('https://swapi.dev/api/films/');
-      const data = await res.json();
-      setFilms(data.results);
-      setLoading(false);
-      setCurrentFilm(data.results[0]);
-    }
-
-    fetchFilms();
-  }, []);
-
   return (
     <>
       <Layout style={{ backgroundImage: `url(${mainBackground})` }}>
@@ -67,14 +45,8 @@ function App() {
               <Complete />
             </Col>
           </Row>
-          <div className='CardsContainer'>
-            {loading ? (
-              <Spin className='Loader' tip='Loading...' />
-            ) : currentFilm ? (
-              <FilmInfo film={currentFilm} />
-            ) : (
-              <Cards data={films} onChange={showMoreInfo} />
-            )}
+          <div>
+            <Cards />
           </div>
         </Content>
       </Layout>
