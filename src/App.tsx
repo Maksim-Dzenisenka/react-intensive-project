@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Layout, Image, Button, Row, Col, Space } from 'antd';
@@ -31,12 +32,12 @@ const App: React.FC = (): JSX.Element => (
               <Row justify='end' align='top'>
                 <Space size='small'>
                   <Link to='/logIn'>
-                    <Button size='large' ghost={true}>
+                    <Button size='large' ghost>
                       LOG IN
                     </Button>
                   </Link>
                   <Link to='/signUp'>
-                    <Button size='large' ghost={true}>
+                    <Button size='large' ghost>
                       SIGN UP
                     </Button>
                   </Link>

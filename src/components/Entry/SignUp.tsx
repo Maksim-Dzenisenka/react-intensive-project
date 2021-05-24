@@ -5,8 +5,6 @@ import { formLayout, tailLayout } from './layouts';
 
 const SignUp: React.FC = (): JSX.Element => {
   const handleSumbit = (values: User): void => {
-    // console.log(values)
-    // console.log('JSON', JSON.stringify(values))
     localStorage.setItem('User', JSON.stringify(values));
   };
 

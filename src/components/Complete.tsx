@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 
-function getRandomInt(max: number, min: number = 0) {
-  return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
+function getRandomInt(max: number, min = 0) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+  // eslint-disable-line no-mixed-operators
 }
 
 const searchResult = (query: string) =>
-  new Array(getRandomInt(5, 5)) //количество сайджестов
+  new Array(getRandomInt(5, 5)) // количество сайджестов
     .join('.')
     .split('.')
     .map((_, idx) => {
@@ -23,7 +24,7 @@ const searchResult = (query: string) =>
             <span>
               Found {query} on{' '}
               <a
-                href={`https://s.taobao.com/search?q=${query}`} //ссылка на страницу с определённой информацией
+                href={`https://s.taobao.com/search?q=${query}`} // ссылка на страницу с определённой информацией
                 target='_blank'
                 rel='noopener noreferrer'>
                 {category}
@@ -54,7 +55,7 @@ function useDebouncedFunction(func: any, delay: number, cleanUp = false) {
 }
 
 const Complete: React.FC = () => {
-  const [options, setOptions] = useState<SelectProps<object>['options']>([]);
+  const [options, setOptions] = useState<SelectProps<string>['options']>([]);
 
   const handleSearch = (value: string) => {
     setOptions(value ? searchResult(value) : []);

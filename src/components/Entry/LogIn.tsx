@@ -1,55 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
-import User from './UserInterface';
-import { formLayout, tailLayout } from './layouts';
+import React, { useState } from 'react';
+import { Form, Input, Button, Alert } from 'antd';
+import { useAppDispatch } from '../../app/hooks';
+import { authorization } from './authSlise';
+import { User, formLayout, tailLayout } from './common';
 
 const LogIn: React.FC = (): JSX.Element => {
+  const [notValid, setNotValid] = useState<boolean | null>(null);
   const [form] = Form.useForm();
-  const [currentUser, setCurrentUser] = useState<User>({
-    username: '',
-    password: '',
-  });
-
+  const dispatch = useAppDispatch();
   const onReset = (): void => {
+    setNotValid(false);
     form.resetFields();
   };
 
-  useEffect(() => {
-    // const user: User = JSON.parse(localStorage.getItem('User') || '{}');
-    // setCurrentUser(user);
-    //console.log('useEffectGetUser', user) //здесь старые данные, предыдущие
-  }, []);
-
-  const validateMessages = {
-    required: 'Login or password is incorrect!',
-  };
-
   const handleSumbit = (values: User) => {
-    console.log('handleSumbit');
-    const test: any = localStorage.getItem('User');
-    console.log('Значение из local', JSON.parse(test));
-    console.log('Значение из формы', values); //при клике приходит правильный объект
-
-    // const { username: enteredUserName, password: enteredPassword } = values;
-    // const { username, password } = currentUser;
-    // console.log(values)
-    // console.log('username', username);
-    // console.log('password', password);
-    // console.log('enteredUserName', enteredUserName);
-    // console.log('enteredPassword', enteredPassword);
-    // if (username !== enteredUserName || password !== enteredPassword) {
-    //   alert('Wroong');
-    // }
-    // return console.log('ok', currentUser);
+    const user: User = JSON.parse(localStorage.getItem('User') || '{}');
+    const { username: enteredUserName, password: enteredPassword } = values;
+    const { username, password } = user;
+    if (username !== enteredUserName || password !== enteredPassword) {
+      setNotValid(true);
+      return;
+    }
+    dispatch(authorization());
+    setNotValid(false);
+    console.log(user);
   };
-
   return (
     <Form
       {...formLayout}
       form={form}
       size='large'
       name='LogIn'
-      validateMessages={validateMessages}
       onFinish={handleSumbit}>
       <Form.Item
         label='Username'
@@ -63,6 +44,12 @@ const LogIn: React.FC = (): JSX.Element => {
         rules={[{ required: true, message: 'Please input your password!' }]}>
         <Input.Password />
       </Form.Item>
+      {notValid && (
+        <Alert
+          message='Login or password is incorrect.If you are new, go to SIGN UP'
+          type='error'
+        />
+      )}
       <Form.Item {...tailLayout}>
         <Button type='primary' htmlType='submit'>
           Submit
