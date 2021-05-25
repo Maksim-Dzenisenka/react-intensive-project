@@ -8,16 +8,17 @@ import Cards from './components/Cards/Cards';
 import SignUp from './components/Entry/SignUp';
 import LogIn from './components/Entry/LogIn';
 import FilmInfo from './components/FilmInfo/FilmInfo';
+import { current } from 'immer';
 
 const { Header, Content } = Layout;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-/* const film: Object = {
+const film: Object = {
   director: 'director',
   title: 'title',
   opening_crawl: 'opening_crawl',
   producer: 'producer',
-}; */
+};
 
 const App: React.FC = (): JSX.Element => {
   return (
@@ -81,8 +82,8 @@ const App: React.FC = (): JSX.Element => {
                     <SignUp />
                   </Col>
                 </Route>
-                <Route path={`/filmInfo`}>
-                  <FilmInfo />;
+                <Route path={`/filmInfo/`}>
+                  <FilmInfo film={film} />;
                 </Route>
               </Switch>
             </Row>

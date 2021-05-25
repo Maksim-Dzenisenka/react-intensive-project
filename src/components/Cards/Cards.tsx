@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Col, Card, Spin } from 'antd';
 import './Cards.css';
 import FilmInfo from '../FilmInfo/FilmInfo';
+import Item from '../Card/Card';
 
 export default function Cards() {
   const [films, setFilms] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [currentFilm, setCurrentFilm] = useState(null);
+
 
   useEffect(() => {
     async function fetchFilms() {
@@ -21,10 +22,11 @@ export default function Cards() {
     fetchFilms();
   }, []);
 
-  const showMoreInfo = (film) => {
-    setFilms([]);
+  /* const showMoreInfo = (film) => {
     setCurrentFilm(film);
-  };
+    console.log(film);
+    console.log(currentFilm);
+  }; */
 
   if (loading) {
     return <Spin className='Loader' tip='Loading...' />;
@@ -33,20 +35,7 @@ export default function Cards() {
   return (
     <>
       {films.map((film, i) => {
-        //console.log('film', film);
-
-        return (
-          <Col span={7} key={i}>
-            <Link to={`filmInfo`}>
-              <Card
-                onClick={() => <FilmInfo currentFilm={currentFilm} />}
-                className='Card'
-                title={<strong>{film.title}</strong>}>
-                <p>{film.opening_crawl}</p>
-              </Card>
-            </Link>
-          </Col>
-        );
+        return <Item film={film} i={i} />;
       })}
     </>
   );
