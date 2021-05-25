@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Card, Spin } from 'antd';
 import './Cards.css';
 import FilmInfo from '../FilmInfo/FilmInfo';
@@ -31,16 +32,18 @@ export default function Cards() {
   return (
     <>
       {films.map((film, i) => {
-        console.log('film', film);
+        //console.log('film', film);
 
         return (
           <Col span={7} key={i}>
-            <Card
-              onClick={() => showMoreInfo({ film })}
-              className='Card'
-              title={<strong>{film.title}</strong>}>
-              <p>{film.opening_crawl}</p>
-            </Card>
+            <Link to={`filmInfo`}>
+              <Card
+                onClick={() => showMoreInfo({ film })}
+                className='Card'
+                title={<strong>{film.title}</strong>}>
+                <p>{film.opening_crawl}</p>
+              </Card>
+            </Link>
           </Col>
         );
       })}
