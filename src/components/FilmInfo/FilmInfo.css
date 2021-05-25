@@ -1,4 +1,6 @@
 .FilmInfo {
   display: block;
-  width: 120%;
+  margin-bottom: 15px;
+  height: 350px;
+  width: 600px;
 }

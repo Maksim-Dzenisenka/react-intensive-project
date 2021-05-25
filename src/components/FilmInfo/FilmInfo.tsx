@@ -1,24 +1,28 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'antd';
+import './FilmInfo.css';
 
-export default function FilmInfo({ film }) {
+export default function FilmInfo(currentFilm) {
   const history = useHistory();
-  console.log(history);
   return (
-    <div className='FilmInfo'>
-      <Card title={<strong>{film.title}</strong>}>
+    <div>
+      <Card className='FilmInfo'>
+        <h2>
+          <strong>Title</strong>
+          {currentFilm.title}
+        </h2>
         <h5>
           <strong>Director: </strong>
-          {film.director}
+          {currentFilm.director}
         </h5>
         <p>
           <strong>Description:</strong>
           <br />
-          {film.opening_crawl}
+          {currentFilm.opening_crawl}
         </p>
         <h5>
-          <strong>Producer:</strong> {film.producer}
+          <strong>Producer:</strong> {currentFilm.producer}
         </h5>
       </Card>
       <Button onClick={() => history.push('/')}>Close</Button>

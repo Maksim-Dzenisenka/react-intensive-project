@@ -12,12 +12,12 @@ import FilmInfo from './components/FilmInfo/FilmInfo';
 const { Header, Content } = Layout;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const film: Object = {
+/* const film: Object = {
   director: 'director',
   title: 'title',
   opening_crawl: 'opening_crawl',
   producer: 'producer',
-};
+}; */
 
 const App: React.FC = (): JSX.Element => {
   return (
@@ -82,7 +82,7 @@ const App: React.FC = (): JSX.Element => {
                   </Col>
                 </Route>
                 <Route path={`/filmInfo`}>
-                  <FilmInfo film={film} />;
+                  <FilmInfo />;
                 </Route>
               </Switch>
             </Row>

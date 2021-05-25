@@ -6,11 +6,12 @@ import FilmInfo from '../FilmInfo/FilmInfo';
 
 export default function Cards() {
   const [films, setFilms] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentFilm, setCurrentFilm] = useState(null);
 
   useEffect(() => {
     async function fetchFilms() {
+      setLoading(true);
       const res = await fetch('https://swapi.dev/api/films/');
       const data = await res.json();
       setFilms(data.results);
@@ -20,7 +21,7 @@ export default function Cards() {
     fetchFilms();
   }, []);
 
-  const showMoreInfo = ({ film }) => {
+  const showMoreInfo = (film) => {
     setFilms([]);
     setCurrentFilm(film);
   };
@@ -38,7 +39,7 @@ export default function Cards() {
           <Col span={7} key={i}>
             <Link to={`filmInfo`}>
               <Card
-                onClick={() => showMoreInfo({ film })}
+                onClick={() => <FilmInfo currentFilm={currentFilm} />}
                 className='Card'
                 title={<strong>{film.title}</strong>}>
                 <p>{film.opening_crawl}</p>
