@@ -22,7 +22,6 @@ export default function Cards() {
   const showMoreInfo = ({ film }) => {
     setFilms([]);
     setCurrentFilm(film);
-    return <FilmInfo film={currentFilm} />;
   };
 
   if (loading) {
