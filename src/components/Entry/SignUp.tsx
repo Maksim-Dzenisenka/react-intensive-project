@@ -1,14 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
-import User from './UserInterface';
-import { formLayout, tailLayout } from './layouts';
+import { useAppDispatch } from '../../app/hooks';
+import { authorization } from './authSlise';
+import { User, formLayout, tailLayout } from './common';
 
 const SignUp: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const handleSumbit = (values: User): void => {
-    // console.log(values)
-    // console.log('JSON', JSON.stringify(values))
     localStorage.setItem('User', JSON.stringify(values));
+    dispatch(authorization());
   };
+  const history = useHistory();
 
   return (
     <Form {...formLayout} size='large' name='SignUp' onFinish={handleSumbit}>
@@ -32,5 +35,5 @@ const SignUp: React.FC = (): JSX.Element => {
     </Form>
   );
 };
-
+//onClick={() => history.push('/account')}
 export default SignUp;

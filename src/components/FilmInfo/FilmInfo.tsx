@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'antd';
 import './FilmInfo.css';
 
 export default function FilmInfo({ film }) {
-  /* const openModal = (film) => {
+  /*   const [currentFilm, setCurrentFilm] = useState();
+  useEffect(() => {
     async function fetchFilms() {
       const res = await fetch(`https://swapi.dev/api/films/${film}/`);
       const about = await res.json();
       setCurrentFilm(about);
     }
-    console.log(currentFilm);
 
     fetchFilms();
-  }; */
-  console.log(film);
+  }, [film]); */
 
   const history = useHistory();
   return (

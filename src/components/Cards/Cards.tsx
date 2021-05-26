@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Card, Spin } from 'antd';
+import { Spin } from 'antd';
 import './Cards.css';
-import FilmInfo from '../FilmInfo/FilmInfo';
 import Item from '../Card/Card';
 
 export default function Cards() {
   const [films, setFilms] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     async function fetchFilms() {
@@ -22,15 +19,13 @@ export default function Cards() {
     fetchFilms();
   }, []);
 
-  /* const showMoreInfo = (film) => {
-    setCurrentFilm(film);
-    console.log(film);
-    console.log(currentFilm);
-  }; */
-
   if (loading) {
     return <Spin className='Loader' tip='Loading...' />;
   }
+
+  /*   if (results.length > 0) {
+    return setFilms(results);
+  } */
 
   return (
     <>
