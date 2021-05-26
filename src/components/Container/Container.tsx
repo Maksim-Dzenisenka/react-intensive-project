@@ -6,6 +6,7 @@ import SignUp from '../Entry/SignUp';
 import LogIn from '../Entry/LogIn';
 import FilmInfo from '../FilmInfo/FilmInfo';
 import NotFound from '../NotFound';
+import Search from '../Search/Search';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 //object test
@@ -24,9 +25,7 @@ const Container: React.FC = (): JSX.Element => {
       gutter={[16, 24]}
       style={{ marginTop: '50px', marginRight: '0', marginLeft: '0' }}>
       <Switch>
-        <Route exact path='/'>
-          {/* <Cards /> */}
-        </Route>
+        <Route exact path='/'></Route>
         <Route path='/signin'>
           <Col span={22}>
             <LogIn />

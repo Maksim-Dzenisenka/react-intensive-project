@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Spin } from 'antd';
+import { Spin, Row } from 'antd';
 import './Cards.css';
 import Item from '../Card/Card';
 
-export default function Cards({ results }) {
-  /*   const [films, setFilms] = useState<any[]>([]); */
-  const [loading, setLoading] = useState(false);
-
-  /* useEffect(() => {
-    async function fetchFilms() {
-      setLoading(true);
-      const res = await fetch('https://swapi.dev/api/films/');
-      const data = await res.json();
-      setFilms(data.results);
-      setLoading(false);
-    }
-
-    fetchFilms();
-  }, []); */
-
+export default function Cards({ results, loading }) {
   if (loading) {
     return <Spin className='Loader' tip='Loading...' />;
   }
@@ -29,9 +14,15 @@ export default function Cards({ results }) {
 
   return (
     <>
-      {results.map((film, i) => {
-        return <Item film={film} i={i} />;
-      })}
+      <Row
+        justify='center'
+        align='middle'
+        gutter={[16, 24]}
+        style={{ marginTop: '50px', marginRight: '0', marginLeft: '0' }}>
+        {results.map((film, i) => {
+          return <Item film={film} i={i} />;
+        })}
+      </Row>
     </>
   );
 }
