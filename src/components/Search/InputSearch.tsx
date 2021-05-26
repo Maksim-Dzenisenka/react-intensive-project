@@ -53,7 +53,7 @@ export default function InputSearch() {
         onChange={handleInput}
         onKeyPress={search}
       />
-      {/*       <Complete onChange={handleInput} onKeyPress={search} /> */}
+
       <Cards results={state.results} loading={state.loading}></Cards>
     </>
   );

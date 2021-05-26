@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Input, AutoComplete } from 'antd';
-import { SelectProps } from 'antd/es/select';
 
 function getRandomInt(max: number, min: number = 0) {
   return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
@@ -53,27 +52,64 @@ function useDebouncedFunction(func: any, delay: number, cleanUp = false) {
   };
 }
 
-const Complete: React.FC = () => {
-  const [options, setOptions] = useState<SelectProps<object>['options']>([]);
+export default function Complete() {
+  const renderTitle = (title) => (
+    <span>
+      {title}
+      <a
+        style={{
+          float: 'right',
+        }}
+        href='https://www.google.com/search?q=antd'
+        target='_blank'
+        rel='noopener noreferrer'>
+        more
+      </a>
+    </span>
+  );
 
-  const handleSearch = (value: string) => {
-    setOptions(value ? searchResult(value) : []);
-  };
+  const renderItem = (title) => ({
+    value: title,
+    label: (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}>
+        {title}
+      </div>
+    ),
+  });
 
-  const onSelect = (value: string) => {
-    console.log('onSelect', value);
-  };
+  const options = [
+    {
+      label: renderTitle('Films'),
+      options: [
+        renderItem('A New Hope'),
+        renderItem('The Empire Strikes Back'),
+        renderItem('Return of the Jedi'),
+        renderItem('The Phantom Menace'),
+        renderItem('Attack of the Clones'),
+        renderItem('evenge of the Sith'),
+      ],
+    },
+  ];
 
-  return (
-    <AutoComplete
+  return;
+  /* <AutoComplete
+      dropdownClassName='certain-category-search-dropdown'
+      dropdownMatchSelectWidth={500}
+      style={{
+        width: 850,
+      }}
+      options={options}
+      <Input.Search size='large' placeholder='input here' />
+    </AutoComplete> */
+  /* <AutoComplete
       dropdownMatchSelectWidth={252}
       style={{ width: '100%' }}
       options={options}
-      onSelect={onSelect}
       onSearch={useDebouncedFunction(handleSearch, 1000)}>
       <Input.Search size='large' placeholder='Search Star Wars' />
-    </AutoComplete>
-  );
-};
-
-export default Complete;
+    </AutoComplete> */
+}
