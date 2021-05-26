@@ -25,7 +25,7 @@ const Container: React.FC = (): JSX.Element => {
       style={{ marginTop: '50px', marginRight: '0', marginLeft: '0' }}>
       <Switch>
         <Route exact path='/'>
-          <Cards />
+          {/* <Cards /> */}
         </Route>
         <Route path='/signin'>
           <Col span={22}>

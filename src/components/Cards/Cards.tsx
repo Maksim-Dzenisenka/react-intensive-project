@@ -3,11 +3,11 @@ import { Spin } from 'antd';
 import './Cards.css';
 import Item from '../Card/Card';
 
-export default function Cards() {
-  const [films, setFilms] = useState<any[]>([]);
+export default function Cards({ results }) {
+  /*   const [films, setFilms] = useState<any[]>([]); */
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchFilms() {
       setLoading(true);
       const res = await fetch('https://swapi.dev/api/films/');
@@ -17,19 +17,19 @@ export default function Cards() {
     }
 
     fetchFilms();
-  }, []);
+  }, []); */
 
   if (loading) {
     return <Spin className='Loader' tip='Loading...' />;
   }
 
-  /*   if (results.length > 0) {
+  /* if (results.length > 0) {
     return setFilms(results);
   } */
 
   return (
     <>
-      {films.map((film, i) => {
+      {results.map((film, i) => {
         return <Item film={film} i={i} />;
       })}
     </>

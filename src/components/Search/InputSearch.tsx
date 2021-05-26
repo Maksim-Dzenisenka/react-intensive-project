@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Item from '../Card/Card';
+import Cards from '../Cards/Cards';
 
 export default function InputSearch() {
   const [state, setState] = useState({
@@ -33,16 +33,14 @@ export default function InputSearch() {
 
   return (
     <>
-      <section className='searchbox-wrap'>
-        <input
-          type='text'
-          placeholder='Search for a movie...'
-          className='searchbox'
-          onChange={handleInput}
-          onKeyPress={search}
-        />
-        {/* <Item film={state.results[0]} i={0} /> */}
-      </section>
+      <input
+        type='text'
+        placeholder='Search for a movie...'
+        className='searchbox'
+        onChange={handleInput}
+        onKeyPress={search}
+      />
+      <Cards results={state.results}></Cards>
     </>
   );
 }
