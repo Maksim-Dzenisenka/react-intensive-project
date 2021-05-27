@@ -21,7 +21,6 @@ const Complete = ({ handleInput, search }) => (
     }>
     <Input.Search
       size='large'
-      placeholder='Search Star Wars title'
       onSelect={useDebouncedFunction(handleInput, 10)}
       onSearch={search}
     />
