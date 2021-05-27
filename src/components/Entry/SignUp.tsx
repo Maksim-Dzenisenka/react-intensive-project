@@ -1,17 +1,19 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
-import User from './UserInterface';
-import { formLayout, tailLayout } from './layouts';
-
+import { User, formLayout, tailLayout } from './common';
+import './SignUp.css';
 const SignUp: React.FC = (): JSX.Element => {
+  const history = useHistory();
+
   const handleSumbit = (values: User): void => {
-    // console.log(values)
-    // console.log('JSON', JSON.stringify(values))
     localStorage.setItem('User', JSON.stringify(values));
+    history.push('/signin');
   };
 
   return (
     <Form {...formLayout} size='large' name='SignUp' onFinish={handleSumbit}>
+      <h1>SIGN UP</h1>
       <Form.Item
         label='Username'
         name='username'

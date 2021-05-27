@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
+import { useDebouncedFunction } from './useDebouncedFunction';
 
 function getRandomInt(max: number, min: number = 0) {
   return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
 }
 
-const searchResult = (query: string) =>
-  new Array(getRandomInt(5, 5)) //количество сайджестов
+const searchResult = (
+  query: string 
+) =>
+  new Array(getRandomInt(5, 5)) 
     .join('.')
     .split('.')
     .map((_, idx) => {
@@ -23,7 +26,7 @@ const searchResult = (query: string) =>
             <span>
               Found {query} on{' '}
               <a
-                href={`https://s.taobao.com/search?q=${query}`} //ссылка на страницу с определённой информацией
+                href={`https://s.taobao.com/search?q=${query}`} 
                 target='_blank'
                 rel='noopener noreferrer'>
                 {category}
@@ -35,31 +38,15 @@ const searchResult = (query: string) =>
       };
     });
 
-function useDebouncedFunction(func: any, delay: number, cleanUp = false) {
-  const timeoutRef: any = useRef();
-
-  function clearTimer() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = undefined;
-    }
-  }
-
-  useEffect(() => (cleanUp ? clearTimer : undefined), [cleanUp]);
-
-  return (...args: any) => {
-    clearTimer();
-    timeoutRef.current = setTimeout(() => func(...args), delay);
-  };
-}
-
 const Complete: React.FC = () => {
   const [options, setOptions] = useState<SelectProps<object>['options']>([]);
 
-  const handleSearch = (value: string) => {
-    setOptions(value ? searchResult(value) : []);
-  };
-
+  const debouncedSearchHandler = useDebouncedFunction(
+    (value) => setOptions(value ? searchResult(value) : []),
+    1000,
+    true
+  );
+  
   const onSelect = (value: string) => {
     console.log('onSelect', value);
   };
@@ -70,7 +57,7 @@ const Complete: React.FC = () => {
       style={{ width: '100%' }}
       options={options}
       onSelect={onSelect}
-      onSearch={useDebouncedFunction(handleSearch, 1000)}>
+      onSearch={debouncedSearchHandler}>
       <Input.Search size='large' placeholder='Search Star Wars' />
     </AutoComplete>
   );

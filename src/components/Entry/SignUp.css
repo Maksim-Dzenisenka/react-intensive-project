@@ -1,0 +1,18 @@
+.ant-form-item-label > label {
+  color: white;
+  font-size: 16px;
+}
+
+.ant-alert-error {
+  width: 33%;
+  margin: 0 auto;
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 50px;
+}
