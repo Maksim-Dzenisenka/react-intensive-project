@@ -1,6 +1,5 @@
 import { Row, Col } from 'antd';
 import InputSearch from './InputSearch';
-import Complete from './Complete';
 
 const Search: React.FC = (): JSX.Element => {
   return (

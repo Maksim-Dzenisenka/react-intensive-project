@@ -1,10 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Input, AutoComplete } from 'antd';
 import useDebouncedFunction from './useDebouncedFunction';
-
-function getRandomInt(max: number, min: number = 0) {
-  return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
-}
 
 const renderTitle = (title) => (
   <span>
@@ -59,8 +55,8 @@ const Complete = ({ handleInput, search }) => (
     <Input.Search
       size='large'
       placeholder='Search Star Wars title'
-      onSearch={useDebouncedFunction(handleInput, 1000)}
-      onChange={search}
+      onChange={useDebouncedFunction(handleInput, 1000)}
+      onSearch={search}
     />
   </AutoComplete>
 );

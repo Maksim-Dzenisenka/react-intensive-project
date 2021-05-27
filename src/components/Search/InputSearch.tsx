@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cards from '../Cards/Cards';
 import Complete from './Complete';
-import { Alert } from 'antd';
 
 export default function InputSearch() {
   const [state, setState] = useState({
