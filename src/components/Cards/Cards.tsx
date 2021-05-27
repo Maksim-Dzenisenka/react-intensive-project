@@ -8,10 +8,6 @@ export default function Cards({ results, loading }) {
     return <Spin className='Loader' tip='Loading...' />;
   }
 
-  /* if (results.length > 0) {
-    return setFilms(results);
-  } */
-
   return (
     <>
       <Row

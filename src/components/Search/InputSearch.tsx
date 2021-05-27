@@ -17,8 +17,6 @@ export default function InputSearch() {
     });
     axios(`https://swapi.dev/api/films/?search=${state.s}`).then(({ data }) => {
       let results = data.results;
-      console.log(results);
-
       setState((prevState) => {
         return { ...prevState, results: results, loading: false };
       });
@@ -33,7 +31,7 @@ export default function InputSearch() {
     });
   };
 
-  /*   if (state.results.length === 0) {
+  /* if (state.results.length === 0) {
     return (
       <Alert
         message='Did not find any movie'
@@ -46,14 +44,7 @@ export default function InputSearch() {
 
   return (
     <>
-      <input
-        type='text'
-        placeholder='Search for a movie...'
-        className='searchbox'
-        onChange={handleInput}
-        onKeyPress={search}
-      />
-
+      <Complete handleInput={handleInput} search={search} />
       <Cards results={state.results} loading={state.loading}></Cards>
     </>
   );
