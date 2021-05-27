@@ -23,7 +23,7 @@ export default function InputSearch() {
   };
 
   const handleInput = (e) => {
-    let s = e.target.value;
+    let s = e.target.value.split(' ', 2).join('+');
 
     setState((prevState) => {
       return { ...prevState, s: s };
