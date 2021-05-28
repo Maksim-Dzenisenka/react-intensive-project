@@ -8,6 +8,7 @@ import SignUp from '../Entry/SignUp';
 import LogIn from '../Entry/LogIn';
 import FilmInfo from '../FilmInfo/FilmInfo';
 import NotFound from '../NotFound';
+import { IFilm } from '../Episodes/episodesTypes';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 //object test
@@ -24,6 +25,12 @@ const Container: React.FC = (): JSX.Element => {
   const [isGoBack, setGoBack] = useState(false);
   const history = useHistory();
   const dispatch = useAppDispatch();
+  const showMoreEp = useAppSelector((state) => state.episodes.currentEpisode);
+  const allEpisodes = useAppSelector((state) => state.episodes.ep);
+
+  const episodeToShow: IFilm[] | undefined = allEpisodes?.filter(
+    (ep) => ep.episode_id === showMoreEp
+  );
 
   const handleSignOut = () => {
     setLoggedOut(true);
@@ -61,7 +68,7 @@ const Container: React.FC = (): JSX.Element => {
           </Col>
         </Route>
         <Route path={`/filmInfo`}>
-          <FilmInfo film={film} />;
+          <FilmInfo episodeToShow={episodeToShow} />;
         </Route>
         {auth && (
           <>

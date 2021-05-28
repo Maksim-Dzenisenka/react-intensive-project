@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+// Нехватило времени настроить, чтобы соответсвовать правилу.
 export interface IEntity {
   id: number;
   edited: string;
@@ -13,11 +15,11 @@ export interface IFilm extends IEntity {
   producer: string;
   starships?: IStarship[];
   vehicles?: IVehicle[];
-  episodeId: number;
+  episode_id: number;
   planets: IPlanet[];
   director: string;
   characters: IPerson[];
-  openingCrawl: string;
+  opening_crawl: string;
 }
 
 export interface ICharacter extends IEntity {
