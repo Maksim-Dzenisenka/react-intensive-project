@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Image } from 'antd';
 import notFound from '../images/not-found.png';
 

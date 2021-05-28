@@ -7,10 +7,8 @@ function getRandomInt(max: number, min: number = 0) {
   return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
 }
 
-const searchResult = (
-  query: string 
-) =>
-  new Array(getRandomInt(5, 5)) 
+const searchResult = (query: string) =>
+  new Array(getRandomInt(5, 5))
     .join('.')
     .split('.')
     .map((_, idx) => {
@@ -26,7 +24,7 @@ const searchResult = (
             <span>
               Found {query} on{' '}
               <a
-                href={`https://s.taobao.com/search?q=${query}`} 
+                href={`https://s.taobao.com/search?q=${query}`}
                 target='_blank'
                 rel='noopener noreferrer'>
                 {category}
@@ -46,7 +44,7 @@ const Complete: React.FC = () => {
     1000,
     true
   );
-  
+
   const onSelect = (value: string) => {
     console.log('onSelect', value);
   };

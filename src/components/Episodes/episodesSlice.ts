@@ -7,11 +7,13 @@ type initState = {
   status: 'loading' | 'success' | 'failed'| null;
   currentEpisode?:number | null;
 }
+
 const initialState:initState = {
   ep: [],
   status: null,
   currentEpisode:null,
   }
+
 export const getEpisodes = createAsyncThunk('/', async () => {
   const data = await getData();
   return data.results;
@@ -30,5 +32,6 @@ export const episodesSlice = createSlice({
     builder.addCase(getEpisodes.fulfilled,(state, {payload}) => ({...state, ep:payload,status:'success'}));
   }
   });
+
 export const { movieId } = episodesSlice.actions;
 export default episodesSlice.reducer;

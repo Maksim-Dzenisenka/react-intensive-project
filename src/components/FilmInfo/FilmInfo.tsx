@@ -1,8 +1,6 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'antd';
 import '../Cards/Cards.css';
-import { IFilm } from '../Episodes/episodesTypes';
 
 const FilmInfo = ({ episodeToShow }: any): JSX.Element => {
   const history = useHistory();

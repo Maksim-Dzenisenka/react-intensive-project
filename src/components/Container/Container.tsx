@@ -10,15 +10,6 @@ import FilmInfo from '../FilmInfo/FilmInfo';
 import NotFound from '../NotFound';
 import { IFilm } from '../Episodes/episodesTypes';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-//object test
-const film: Object = {
-  director: 'director',
-  title: 'title',
-  opening_crawl: 'opening_crawl',
-  producer: 'producer',
-};
-
 const Container: React.FC = (): JSX.Element => {
   const auth = useAppSelector((state) => state.auth.isAuth);
   const [loggedOut, setLoggedOut] = useState(false);
