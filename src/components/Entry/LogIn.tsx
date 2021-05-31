@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Alert } from 'antd';
 import { useAppDispatch } from '../../app/hooks';
 import { authorization } from './authSlise';
@@ -8,14 +9,14 @@ const LogIn: React.FC = (): JSX.Element => {
   const [notValid, setNotValid] = useState<boolean | null>(null);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
+  const history = useHistory();
+
   const onReset = (): void => {
     setNotValid(false);
     form.resetFields();
   };
 
   const handleSumbit = (values: User) => {
-    // Хотел сделать через useEffect, но не обновлялся localStorage.
-    // Потому, что слишком много времени ушло уже на попытки.
     const user: User = JSON.parse(localStorage.getItem('User') || '{}');
     const { username: enteredUserName, password: enteredPassword } = values;
     const { username, password } = user;
@@ -25,8 +26,9 @@ const LogIn: React.FC = (): JSX.Element => {
     }
     dispatch(authorization());
     setNotValid(false);
-    console.log(user);
+    history.push('/');
   };
+
   return (
     <Form
       {...formLayout}
