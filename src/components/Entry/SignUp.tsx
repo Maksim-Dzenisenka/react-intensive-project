@@ -1,11 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
-import User from './UserInterface';
-import { formLayout, tailLayout } from './layouts';
+import { User, formLayout, tailLayout } from './common';
 
 const SignUp: React.FC = (): JSX.Element => {
+  const history = useHistory();
+
   const handleSumbit = (values: User): void => {
     localStorage.setItem('User', JSON.stringify(values));
+    history.push('/signin');
   };
 
   return (

@@ -1,14 +1,13 @@
 import {  createSlice } from '@reduxjs/toolkit';
-import { auth } from './common';
+import { Auth } from './common';
 
-const initialState = <auth> {isAuth:false};
+const initialState = <Auth> {isAuth:false};
 export const authSlice = createSlice({
  name: 'isAuth',
  initialState,
   reducers: {
-    // В toolkit разрешается мутировать данные, можно ли вернуть просто новый объект?
-    authorization:(state:auth):auth => ({...state, isAuth:true}),
-    exit:(state:auth):auth => ({...state, isAuth:false}),
+    authorization:():Auth => ({isAuth:true}),
+    exit:():Auth => ({isAuth:false}),
   }
 })
 export const { authorization, exit } = authSlice.actions;

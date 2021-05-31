@@ -1,51 +1,46 @@
-import React, { useState, useEffect } from 'react';
-
-import { Col, Card, Spin } from 'antd';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Tooltip, Col, Card, Spin } from 'antd';
+import { StarFilled } from '@ant-design/icons';
 import './Cards.css';
-import FilmInfo from '../FilmInfo/FilmInfo';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getEpisodes, movieId } from '../Episodes/episodesSlice';
+import { IFilm } from '../Episodes/episodesTypes';
 
-export default function Cards() {
-  const [films, setFilms] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentFilm, setCurrentFilm] = useState(null);
+const Cards: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const films: IFilm[] | undefined = useAppSelector(
+    (state) => state.episodes.ep
+  );
+  const status = useAppSelector((state) => state.episodes.status);
 
   useEffect(() => {
-    async function fetchFilms() {
-      const res = await fetch('https://swapi.dev/api/films/');
-      const data = await res.json();
-      setFilms(data.results);
-      setLoading(false);
-    }
+    dispatch(getEpisodes());
+  }, [dispatch]);
 
-    fetchFilms();
-  }, []);
-
-  const showMoreInfo = ({ film }) => {
-    setFilms([]);
-    setCurrentFilm(film);
-    return <FilmInfo film={currentFilm} />;
-  };
-
-  if (loading) {
+  if (status === 'loading') {
     return <Spin className='Loader' tip='Loading...' />;
   }
-
   return (
     <>
-      {films.map((film, i) => {
-        console.log('film', film);
-
-        return (
-          <Col span={7} key={i}>
-            <Card
-              onClick={() => showMoreInfo({ film })}
-              className='Card'
-              title={<strong>{film.title}</strong>}>
-              <p>{film.opening_crawl}</p>
-            </Card>
-          </Col>
-        );
-      })}
+      {films?.map((film: IFilm) => (
+        <Col span={7} key={film.episode_id}>
+          <Card className='Card' title={<strong>{film.title}</strong>}>
+            <p>{film.opening_crawl}</p>
+            <Link to='filmInfo'>
+              <Button
+                size='large'
+                onClick={() => dispatch(movieId(film.episode_id))}>
+                MORE DETAILS
+              </Button>
+            </Link>
+            <Tooltip title='Favorite'>
+              <Button shape='circle' icon={<StarFilled />} />
+            </Tooltip>
+          </Card>
+        </Col>
+      ))}
     </>
   );
-}
+};
+export default Cards;
