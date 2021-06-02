@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { Row, Col, Button, Space } from 'antd';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -9,19 +9,26 @@ import LogIn from '../Entry/LogIn';
 import FilmInfo from '../FilmInfo/FilmInfo';
 import NotFound from '../NotFound';
 import { IFilm } from '../Episodes/episodesTypes';
+import ResultSearchCard from '../Cards/ResultSearchCard';
 
 const Container: React.FC = (): JSX.Element => {
   const auth = useAppSelector((state) => state.auth.isAuth);
   const [loggedOut, setLoggedOut] = useState(false);
   const [isGoBack, setGoBack] = useState(false);
+  const [search, setSearch] = useState<any>('');
   const history = useHistory();
   const dispatch = useAppDispatch();
   const showMoreEp = useAppSelector((state) => state.episodes.currentEpisode);
   const allEpisodes = useAppSelector((state) => state.episodes.ep);
+  const searchUrl = useAppSelector((state) => state.episodes.searchUrl);
 
   const episodeToShow: IFilm[] | undefined = allEpisodes?.filter(
     (ep) => ep.episode_id === showMoreEp
   );
+
+  useEffect(() => {
+    setSearch(searchUrl);
+  }, []);
 
   const handleSignOut = () => {
     setLoggedOut(true);
@@ -61,6 +68,9 @@ const Container: React.FC = (): JSX.Element => {
         <Route path={`/filmInfo`}>
           <FilmInfo episodeToShow={episodeToShow} />;
         </Route>
+        <Route path={`${search}`}>
+          <ResultSearchCard episodeToShow={episodeToShow} />;
+        </Route>
         {auth && (
           <>
             <Route path='/favorites'>
@@ -77,10 +87,10 @@ const Container: React.FC = (): JSX.Element => {
               <Col>
                 <h1 style={{ color: 'white' }}>Sign out of your account?</h1>
                 <Space size='large'>
-                  <Button size='large' ghost={true} onClick={handleSignOut}>
+                  <Button size='large' ghost onClick={handleSignOut}>
                     SIGN OUT
                   </Button>
-                  <Button size='large' ghost={true} onClick={handleBack}>
+                  <Button size='large' ghost onClick={handleBack}>
                     BACK
                   </Button>
                 </Space>

@@ -2,51 +2,60 @@ import React, { useState } from 'react';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import { useDebouncedFunction } from './useDebouncedFunction';
-
-function getRandomInt(max: number, min: number = 0) {
-  return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
-}
-
-const searchResult = (query: string) =>
-  new Array(getRandomInt(5, 5))
-    .join('.')
-    .split('.')
-    .map((_, idx) => {
-      const category = `${query}${idx}`;
-      return {
-        value: category,
-        label: (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}>
-            <span>
-              Found {query} on{' '}
-              <a
-                href={`https://s.taobao.com/search?q=${query}`}
-                target='_blank'
-                rel='noopener noreferrer'>
-                {category}
-              </a>
-            </span>
-            <span>{getRandomInt(200, 100)} results</span>
-          </div>
-        ),
-      };
-    });
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
+import { addSearchUrl, movieId } from '../Episodes/episodesSlice';
 
 const Complete: React.FC = () => {
   const [options, setOptions] = useState<SelectProps<object>['options']>([]);
+  const dispatch = useAppDispatch();
+
+  const searchResult = (resultSearch: any) => {
+    return new Array(resultSearch.length)
+      .join('.')
+      .split('.')
+      .map((_, idx) => {
+        const category = `${resultSearch[idx].title}`;
+
+        return {
+          value: category,
+          label: (
+            <Link to={`/films?search=${category.replaceAll(' ', '-')}`}>
+              <div>{category}</div>
+            </Link>
+          ),
+        };
+      });
+  };
 
   const debouncedSearchHandler = useDebouncedFunction(
-    (value) => setOptions(value ? searchResult(value) : []),
+    (value) => {
+      if (value) {
+        axios(`https://swapi.dev/api/films/?search=${value}`)
+          .then(({ data }) => {
+            let results = data.results;
+            setOptions(results ? searchResult(results) : []);
+          })
+          .catch(() => {
+            setOptions([]);
+          });
+      } else {
+        setOptions([]);
+      }
+    },
     1000,
     true
   );
 
   const onSelect = (value: string) => {
-    console.log('onSelect', value);
+    axios(`https://swapi.dev/api/films/?search=${value}`).then(({ data }) => {
+      const [result] = data.results;
+      dispatch(movieId(result.episode_id));
+    });
+
+    const searchVal = value.replaceAll(' ', '-');
+    dispatch(addSearchUrl(`/films?search=${searchVal}`));
   };
 
   return (
